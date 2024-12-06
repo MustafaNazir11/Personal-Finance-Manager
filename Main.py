@@ -65,7 +65,7 @@ def go_to_transaction_page():
 
     Button(root, text="Add Transaction", command=transaction, fg="white", bg="green", font=("Times New Roman", 18)).pack(pady=20)
     if os.path.exists("transaction.csv"):
-        df_transaction.to_csv('transaction.csv',mode='a',index=False,header=True)
+        df_transaction.to_csv('transaction.csv',mode='a',index=False,header=False)
     else:
         df_transaction.to_csv('transaction.csv',mode='w',index=False,header=True)
 
@@ -131,6 +131,7 @@ entry_password = Entry(root, width=50, show="*", font=("Times New Roman", 18))
 entry_password.pack()
 
 Button(root, text="Register", command=register, fg="white", bg="green", font=("Times New Roman", 12)).pack(pady=20)
+Button(root, text="Login", command=None, fg="white", bg="green", font=("Times New Roman", 12)).pack(pady=5)
 
 # Output Label
 label_output = Label(root, text="", fg="green", font=("Times New Roman", 18))
