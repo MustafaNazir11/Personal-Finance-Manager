@@ -36,4 +36,4 @@ The **Personal Finance Manager** is a simple desktop application built using Pyt
 2. Open a terminal or command prompt and navigate to the file's directory.
 3. Run the application using:
    ```bash
-   python personal_finance_manager.py
+   python main.py
