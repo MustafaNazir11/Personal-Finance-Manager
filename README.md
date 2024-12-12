@@ -29,6 +29,7 @@ The **Personal Finance Manager** is a simple desktop application built using Pyt
 ### Prerequisites
 - Python 3.x installed on your system.
 - Tkinter library (comes pre-installed with Python on most systems).
+- Pandas Library for CRUD operations with data
 
 ### Running the Application
 1. Save the code to a file, e.g., `personal_finance_manager.py`.
