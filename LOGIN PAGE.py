@@ -1,11 +1,21 @@
 import tkinter as tk
 from tkinter import messagebox
+import pandas as pd
+
+
+file = pd.read_csv("result.csv",usecols = ["email","password"],skipinitialspace=True)
+
+email_list = file["email"].to_list()
+password_list = file["password"].to_list()
+
+email_password = dict(zip(email_list,password_list))
+
 
 
 def login():
     email = email_entry.get()
     password = password_entry.get()
-    if email == "abcd" and password == "abcd":
+    if email in email_list and password == email_password[email]:
         messagebox.showinfo("Login Successful", "LOGED IN!")
     else:
         messagebox.showerror("Login Failed", "INVALID email OR PASSWORD! TRY AGAIN!")
@@ -43,3 +53,5 @@ cancel_button = tk.Button(frame, text="Cancel", command=cancel, bg="red", fg="wh
 cancel_button.grid(row=2,column=1,pady=20,padx=10)
 
 root.mainloop()
+
+print(email_password)
