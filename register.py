@@ -27,10 +27,10 @@ def register(root):
             "password": [user_password]
         })
 
-        if os.path.exists("result.csv"):
-            new_data.to_csv('result.csv', mode='a', index=False, header=False)
+        if os.path.exists("register.csv"):
+            new_data.to_csv('register.csv', mode='a', index=False, header=False)
         else:
-            new_data.to_csv('result.csv', mode='w', index=False, header=True)
+            new_data.to_csv('register.csv', mode='w', index=False, header=True)
 
       
         label_output.config(

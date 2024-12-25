@@ -22,10 +22,10 @@ def save_user(name, email, password):
             "password": [password]  # Consider hashing passwords for security
         })
 
-        if os.path.exists("result.csv"):
-            new_data.to_csv("result.csv", mode="a", index=False, header=False)
+        if os.path.exists("register.csv"):
+            new_data.to_csv("register.csv", mode="a", index=False, header=False)
         else:
-            new_data.to_csv("result.csv", mode="w", index=False, header=True)
+            new_data.to_csv("register.csv", mode="w", index=False, header=True)
 
         logging.info(f"User '{email}' registered successfully.")
     except Exception as e:
@@ -35,8 +35,8 @@ def save_user(name, email, password):
 def check_user(email, password):
     """Checks if the user exists in the CSV."""
     try:
-        if os.path.exists("result.csv"):
-            df = pd.read_csv("result.csv")
+        if os.path.exists("register.csv"):
+            df = pd.read_csv("register.csv")
             user = df[(df["email"] == email) & (df["password"] == password)]
             if not user.empty:
                 logging.info(f"User '{email}' authenticated successfully.")
