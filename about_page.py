@@ -3,8 +3,13 @@ import tkinter as tk
 def about_page(root):
     for widget in root.winfo_children():
         widget.destroy()
+    window_H, window_W = 600, 800
+    screen_H = root.winfo_screenheight() #height of device (laptop,PC) screen
+    screen_W = root.winfo_screenwidth()#width of device (laptop,PC) screen
+    Position_V = int(screen_H/2 -window_H/2) #Vertical Position of the window
+    Position_H = int(screen_W/2 - window_W/2)
     root.title("About Personal Finance Manager")
-    root.geometry("800x600")
+    root.geometry(f"{window_W}x{window_H}+{Position_H}+{Position_V}")
 
     fixed_font = ("Courier", 14)
     bold_font = ("Courier", 14, "bold")

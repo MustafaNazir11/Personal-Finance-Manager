@@ -7,7 +7,13 @@ df_transaction = pd.DataFrame(columns=categories)
 
 def transaction_page(root, username):
     """Sets up the transaction page."""
+    window_W, window_H = 500, 600
 
+    screen_H = root.winfo_screenheight() #height of device (laptop,PC) screen
+    screen_W = root.winfo_screenwidth()#width of device (laptop,PC) screen
+    Position_V = int(screen_H/2 -window_H/2) #Vertical Position of the window
+    Position_H = int(screen_W/2 - window_W/2) #Horizontal Position of the window
+    root.geometry(f"{window_W}x{window_H}+{Position_H}+{Position_V}")
     # Clear the root window
     for widget in root.winfo_children():
         widget.destroy()
