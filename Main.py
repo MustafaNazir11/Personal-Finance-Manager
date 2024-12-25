@@ -66,5 +66,4 @@ Button(
     relief="raised",
     bd=4
 ).pack(pady=15)
-print(screen_W,window_W)
 root.mainloop()
