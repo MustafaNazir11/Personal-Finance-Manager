@@ -2,6 +2,7 @@ from tkinter import *
 import pandas as pd
 import os
 
+
 categories = ["Food", "Rent", "Shopping", "Utilities", "Transport", "Others"]
 df_transaction = pd.DataFrame(columns=categories)
 
@@ -128,3 +129,4 @@ def transaction_page(root, username):
         bg="#f0f0f0"
     )
     transaction_output.pack()
+

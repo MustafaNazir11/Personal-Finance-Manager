@@ -2,8 +2,9 @@ from tkinter import *
 from utility import check_user
 from transaction_page import transaction_page
 from income_page import go_to_income_page
+from back import navigate_to
 
-def login(root):
+def login(root, home_page):
     def handle_login():
         user_email = entry_email.get()
         user_password = entry_password.get()
@@ -110,3 +111,6 @@ def login(root):
         bg="#f0f0f0"
     )
     label_output.pack()
+
+    Button(root, text="Back", command=lambda: navigate_to(root, home_page), fg="white", bg="#808080",
+           font=("Helvetica", 12, "bold"), width=10, height=1, relief="raised", bd=3).pack(pady=15)

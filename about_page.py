@@ -1,13 +1,17 @@
 import tkinter as tk
+from back import navigate_to  # Ensure this utility function exists for navigation.
 
-def about_page(root):
+def about_page(root, home_page):
+
     for widget in root.winfo_children():
         widget.destroy()
+
     window_H, window_W = 600, 800
-    screen_H = root.winfo_screenheight() #height of device (laptop,PC) screen
-    screen_W = root.winfo_screenwidth()#width of device (laptop,PC) screen
-    Position_V = int(screen_H/2 -window_H/2) #Vertical Position of the window
-    Position_H = int(screen_W/2 - window_W/2)
+    screen_H = root.winfo_screenheight()  # Height of device (laptop/PC) screen.
+    screen_W = root.winfo_screenwidth()  # Width of device (laptop/PC) screen.
+    Position_V = int(screen_H / 2 - window_H / 2)  # Vertical position of the window.
+    Position_H = int(screen_W / 2 - window_W / 2)
+
     root.title("About Personal Finance Manager")
     root.geometry(f"{window_W}x{window_H}+{Position_H}+{Position_V}")
 
@@ -16,6 +20,7 @@ def about_page(root):
     heading_font = ("Helvetica", 18, "bold")
     excited_font = ("Arial", 16, "italic bold")
 
+    # Create a canvas with a scrollbar
     canvas = tk.Canvas(root, bg="#2C2C2C")
     scrollbar = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
     frame = tk.Frame(canvas, bg="#2C2C2C")
@@ -25,6 +30,7 @@ def about_page(root):
     canvas.pack(side="left", fill="both", expand=True)
     canvas.create_window((0, 0), window=frame, anchor="n")
 
+    # Title of the page
     label_title = tk.Label(
         frame,
         text="About the Personal Finance Manager App",
@@ -34,6 +40,7 @@ def about_page(root):
     )
     label_title.pack(pady=10)
 
+    # Description
     label_description = tk.Label(
         frame,
         text=(
@@ -55,6 +62,7 @@ def about_page(root):
     )
     label_description.pack(pady=10)
 
+    # Features section
     label_features_title = tk.Label(
         frame,
         text="What Does This App Do?",
@@ -86,6 +94,7 @@ def about_page(root):
     )
     label_features.pack(pady=10)
 
+    # Benefits section
     label_benefits_register_title = tk.Label(
         frame,
         text="Benefits of Using the App & How to Register",
@@ -112,6 +121,7 @@ def about_page(root):
     )
     label_benefits_register.pack(pady=10)
 
+    # Excitement section
     label_excited = tk.Label(
         frame,
         text=(
@@ -126,12 +136,26 @@ def about_page(root):
     )
     label_excited.pack(pady=20)
 
+    # Add a Back button
+    button_back = tk.Button(
+        frame,
+        text="Back",
+        command=lambda: navigate_to(root, home_page),
+        font=("Helvetica", 14, "bold"),
+        bg="#404040",
+        fg="white",
+        relief="raised",
+        bd=4,
+        width=10
+    )
+    button_back.pack(pady=20)
+
+    # Configure the scrollbar
     frame.update_idletasks()
     canvas.config(scrollregion=canvas.bbox("all"))
 
+    # Add mouse wheel scrolling
     def on_mouse_wheel(event):
         canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
 
     root.bind_all("<MouseWheel>", on_mouse_wheel)
-
-    root.mainloop()
