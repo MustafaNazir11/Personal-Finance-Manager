@@ -5,9 +5,6 @@ from datetime import datetime
 from back import navigate_to
 
 def register(root, home_page):
-    """
-    Sets up the registration page.
-    """
     def handle_registration():
         user_name = entry_name.get()
         user_email = entry_email.get()
@@ -22,10 +19,12 @@ def register(root, home_page):
             "password": [user_password]
         })
 
-        if os.path.exists("register.csv"):
-            new_data.to_csv('register.csv', mode='a', index=False, header=False)
+        user_file = f"{username}_data.csv"
+
+        if os.path.exists(user_file):
+            new_data.to_csv(user_file, mode='a', index=False, header=False)
         else:
-            new_data.to_csv('register.csv', mode='w', index=False, header=True)
+            new_data.to_csv(user_file, mode='w', index=False, header=True)
 
         label_output.config(
             text=f"User registered successfully! Your username is '{username}'",
