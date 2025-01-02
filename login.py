@@ -1,7 +1,6 @@
 from tkinter import *
 from utility import check_user
 from transaction_page import transaction_page
-from income_page import go_to_income_page
 from utility import navigate_to, centerWin
 
 def login(root, home_page):
@@ -36,19 +35,6 @@ def login(root, home_page):
                 command=lambda: transaction_page(root, username),
                 fg="white",
                 bg="#004080",
-                font=("Helvetica", 14, "bold"),
-                width=18,
-                height=2,
-                relief="raised",
-                bd=4
-            ).pack(pady=20)
-
-            Button(
-                root,
-                text="Income Page",
-                command=lambda: go_to_income_page(root),
-                fg="white",
-                bg="#006400",
                 font=("Helvetica", 14, "bold"),
                 width=18,
                 height=2,
