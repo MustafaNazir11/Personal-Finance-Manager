@@ -1,5 +1,5 @@
 import tkinter as tk
-from back import navigate_to  # Ensure this utility function exists for navigation.
+from utility import navigate_to  # Ensure this utility function exists for navigation.
 
 def about_page(root, home_page):
 

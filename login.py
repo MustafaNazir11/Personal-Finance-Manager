@@ -2,7 +2,7 @@ from tkinter import *
 from utility import check_user
 from transaction_page import transaction_page
 from income_page import go_to_income_page
-from back import navigate_to
+from utility import navigate_to, centerWin
 
 def login(root, home_page):
     def handle_login():
@@ -60,7 +60,7 @@ def login(root, home_page):
 
     for widget in root.winfo_children():
         widget.destroy()
-
+    centerWin(root, 500, 500)
     root.configure(bg="#f0f0f0")
 
     Label(

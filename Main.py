@@ -2,6 +2,10 @@ from tkinter import *
 from register import register
 from login import login
 from about_page import about_page
+from utility import centerWin
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
 
 def main_page(root):
     """
@@ -62,6 +66,6 @@ def main_page(root):
 
 if __name__ == "__main__":
     root = Tk()
-    root.geometry("500x400")
+    centerWin(root, 500, 400)
     main_page(root)
     root.mainloop()

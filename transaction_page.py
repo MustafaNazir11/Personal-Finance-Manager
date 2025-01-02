@@ -1,6 +1,7 @@
 from tkinter import *
 import pandas as pd
 import os
+from utility import centerWin
 
 
 categories = {
@@ -14,7 +15,7 @@ columns = [f"{main}: {sub}" if sub != main else main for main in categories for 
 def transaction_page(root, username):
     """Sets up the transaction page."""
  
-    root.geometry("500x600")
+    centerWin(root, 500, 600)
     root.configure(bg="#f0f0f0")
     root.title("Transaction Page")
 
@@ -84,6 +85,7 @@ def transaction_page(root, username):
             if column_name in df_transaction.columns:
                 new_row = {col: None for col in df_transaction.columns}
                 new_row[column_name] = amount
+                df_transaction.dropna()
                 df_transaction = pd.concat([df_transaction, pd.DataFrame([new_row])], ignore_index=True)
 
            

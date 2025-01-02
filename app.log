@@ -76,3 +76,18 @@
 2024-12-29 19:07:34,022 - INFO - User 'omm@gmail.com' authenticated successfully.
 2024-12-29 19:19:26,838 - INFO - User 'omm@gmail.com' authenticated successfully.
 2024-12-29 19:36:33,237 - INFO - User 'omm@gmail.com' authenticated successfully.
+2024-12-29 19:49:36,575 - WARNING - Authentication failed for email: om@gmail.com
+2024-12-29 19:50:23,526 - INFO - User 'ojas@gmail.com' authenticated successfully.
+2025-01-02 12:56:51,477 - WARNING - Authentication failed for email: omm@gmail.com
+2025-01-02 12:57:00,345 - INFO - User 'omm@gmail.com' authenticated successfully.
+2025-01-02 13:00:56,334 - WARNING - Authentication failed for email: ayo@gmail.com
+2025-01-02 13:01:01,398 - WARNING - Authentication failed for email: ayo@gmail.com
+2025-01-02 13:01:08,470 - WARNING - Authentication failed for email: ayo@gmail.com
+2025-01-02 13:02:05,712 - WARNING - Authentication failed for email: ayo@gmail.com
+2025-01-02 13:02:11,942 - WARNING - Authentication failed for email: ayo@gmail.com
+2025-01-02 13:02:12,879 - WARNING - Authentication failed for email: ayo@gmail.com
+2025-01-02 13:05:50,474 - INFO - User 'asdfghjkl@' authenticated successfully.
+2025-01-02 13:15:06,304 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-02 13:16:35,353 - INFO - User 'qaz@' authenticated successfully.
+2025-01-02 13:37:05,486 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-02 13:37:39,720 - INFO - User 'qwertyuiop@' authenticated successfully.
