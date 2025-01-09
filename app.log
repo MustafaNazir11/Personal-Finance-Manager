@@ -94,3 +94,16 @@
 2025-01-02 23:22:57,384 - INFO - User 'shlok123@gmail.com' authenticated successfully.
 2025-01-02 23:51:39,109 - INFO - User 'ojas@gmail.com' authenticated successfully.
 2025-01-02 23:58:26,948 - INFO - User 'ojas@gmail.com' authenticated successfully.
+2025-01-03 15:33:40,400 - WARNING - Authentication failed for email: abcc@gmail.com
+2025-01-03 15:33:45,923 - WARNING - Authentication failed for email: abcc@gmail.com
+2025-01-03 15:33:52,325 - WARNING - Authentication failed for email: abcc@gmail.com
+2025-01-03 15:33:58,474 - WARNING - Authentication failed for email: abcc@gmail.com
+2025-01-03 15:34:17,884 - INFO - User 'abcc@gmail.com' authenticated successfully.
+2025-01-09 22:26:52,859 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-09 22:27:42,489 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-09 22:31:08,835 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-09 22:32:20,761 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-09 22:33:46,421 - WARNING - Authentication failed for email: qwertyuiop@
+2025-01-09 22:33:49,016 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-09 22:34:10,496 - INFO - User 'qwertyuiop@' authenticated successfully.
+2025-01-09 22:36:40,525 - INFO - User 'qwertyuiop@' authenticated successfully.

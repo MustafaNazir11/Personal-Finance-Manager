@@ -1,7 +1,7 @@
 from tkinter import *
 import pandas as pd
 import os
-from utility import centerWin
+from utility import centerWin, navigate_to
 from tkinter import messagebox
 
 categories = {
@@ -100,8 +100,14 @@ def transaction_page(root, username):
         except ValueError:
             transaction_output.config(text="Invalid amount! Please enter a valid number.", fg="#8B0000")
 
+    def logout():
+        from Main import main_page  # Import here to avoid circular dependency
+        navigate_to(root, main_page)
     Button(root, text="Add Transaction", command=add_transaction, font=("Helvetica", 14, "bold"),
            bg="#004080", fg="white", width=20).pack(pady=20)
+    
+    Button(root, text="Logout", command= logout, font=("Helvetica", 14, "bold"),
+           bg="#008080", fg="white").place(x=500, y=10, anchor="ne") 
 
     transaction_output = Label(root, text="", font=("Helvetica", 14), bg="#f0f0f0")
     transaction_output.pack()
