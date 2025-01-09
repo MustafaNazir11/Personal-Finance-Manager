@@ -103,7 +103,15 @@ def transaction_page(root, username):
     def logout():
         from Main import main_page  # Import here to avoid circular dependency
         navigate_to(root, main_page)
+    def back():
+        from login import handle_login_success
+        handle_login_success(root,username)
+
+        
     Button(root, text="Add Transaction", command=add_transaction, font=("Helvetica", 14, "bold"),
+           bg="#004080", fg="white", width=20).pack(pady=20)
+
+    Button(root, text="Back", command=back, font=("Helvetica", 14, "bold"),
            bg="#004080", fg="white", width=20).pack(pady=20)
     
     Button(root, text="Logout", command= logout, font=("Helvetica", 14, "bold"),
