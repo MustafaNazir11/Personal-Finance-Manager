@@ -2,19 +2,21 @@ import tkinter as tk
 from utility import navigate_to  # Ensure this utility function exists for navigation.
 
 def about_page(root, home_page):
-
+    # Clear the existing content in the root window
     for widget in root.winfo_children():
         widget.destroy()
 
+    # Set the window dimensions and positioning
     window_H, window_W = 600, 800
-    screen_H = root.winfo_screenheight()  # Height of device (laptop/PC) screen.
-    screen_W = root.winfo_screenwidth()  # Width of device (laptop/PC) screen.
-    Position_V = int(screen_H / 2 - window_H / 2)  # Vertical position of the window.
+    screen_H = root.winfo_screenheight()
+    screen_W = root.winfo_screenwidth()
+    Position_V = int(screen_H / 2 - window_H / 2)
     Position_H = int(screen_W / 2 - window_W / 2)
 
     root.title("About Personal Finance Manager")
     root.geometry(f"{window_W}x{window_H}+{Position_H}+{Position_V}")
 
+    # Define fonts and styles
     fixed_font = ("Courier", 14)
     bold_font = ("Courier", 14, "bold")
     heading_font = ("Helvetica", 18, "bold")
@@ -30,7 +32,7 @@ def about_page(root, home_page):
     canvas.pack(side="left", fill="both", expand=True)
     canvas.create_window((0, 0), window=frame, anchor="n")
 
-    # Title of the page
+    # Add title to the page
     label_title = tk.Label(
         frame,
         text="About the Personal Finance Manager App",
@@ -40,7 +42,7 @@ def about_page(root, home_page):
     )
     label_title.pack(pady=10)
 
-    # Description
+    # Description section
     label_description = tk.Label(
         frame,
         text=(
@@ -84,7 +86,7 @@ def about_page(root, home_page):
             "📈 Data Visualization:\n"
             "    - Gain clear visual insights into your financial health and habits with the app’s powerful visualization tools.\n\n"
             "💾 Secure Data Storage:\n"
-            "    - Your financial data is securely stored locally, ensuring that your information stays private.\n"
+            "    - Your financial data is securely stored locally, ensuring that your information stays private."
         ),
         font=fixed_font,
         justify="center",
@@ -110,7 +112,7 @@ def about_page(root, home_page):
             "📅 Stay Organized: Easily manage your financial activities.\n\n"
             "🔒 Secure and Private: Rest assured your data is safe.\n\n"
             "🚀 Improve Financial Health: Understand and optimize spending patterns.\n\n"
-            "🕒 Save Time: User-friendly interface for efficient management.\n\n"
+            "⏳ Save Time: User-friendly interface for efficient management.\n\n"
             "📊 Visual Clarity: Gain actionable insights with visual reports."
         ),
         font=fixed_font,

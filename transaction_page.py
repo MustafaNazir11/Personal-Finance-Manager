@@ -128,7 +128,6 @@ def transaction_page(root, username):
 
     Label(root, text="Amount (₹):", font=("Helvetica", 14), bg="#f0f0f0").pack(pady=10)
     entry_amount = Entry(root, font=("Helvetica", 14), width=30)
-
     entry_amount.pack(pady=5)
 
     def add_transaction():
@@ -172,11 +171,13 @@ def transaction_page(root, username):
 
         except ValueError:
             transaction_output.config(text="Invalid amount! Please enter a valid number.", fg="#8B0000")
+
     def back():
         from login import handle_login_success
-        handle_login_success(root,username)
+        handle_login_success(root, username)
+
     def logout():
-        from Main import main_page  # Import here to avoid circular dependency
+        from Main import main_page
         navigate_to(root, main_page)
 
     Button(root, text="Add Transaction", command=add_transaction, font=("Helvetica", 14, "bold"),
@@ -193,8 +194,8 @@ def transaction_page(root, username):
 
     Button(root, text="Back", command=back, font=("Helvetica", 14, "bold"),
            bg="#004080", fg="white").pack(pady=20)
-    Button(root, text="Logout", command= logout, font=("Helvetica", 14, "bold"),
-           bg="#008080", fg="white").place(x=500, y=10, anchor="ne") 
+    Button(root, text="Logout", command=logout, font=("Helvetica", 14, "bold"),
+           bg="#008080", fg="white").place(x=500, y=10, anchor="ne")
 
     transaction_output = Label(root, text="", font=("Helvetica", 14), bg="#f0f0f0")
     transaction_output.pack()

@@ -1,14 +1,16 @@
 from tkinter import *
-from utility import check_user
+from utility import check_user, navigate_to, centerWin
 from transaction_page import transaction_page
-from utility import navigate_to, centerWin
 
 def handle_login_success(root, username):
     for widget in root.winfo_children():
         widget.destroy()
+
     def logout():
         from Main import main_page  # Import here to avoid circular dependency
         navigate_to(root, main_page)
+
+    root.configure(bg="#f0f0f0")
 
     Label(root, text=f"Welcome, {username}!", font=("Helvetica", 20, "bold"), fg="#000080", bg="#f0f0f0").pack(pady=30)
 
@@ -39,9 +41,8 @@ def handle_login_success(root, username):
         relief="raised",
         bd=4
     ).pack(pady=20)
-    
-def login(root, home_page):
 
+def login(root, home_page):
     def handle_login():
         user_email = entry_email.get()
         user_password = entry_password.get()
@@ -53,6 +54,7 @@ def login(root, home_page):
 
     for widget in root.winfo_children():
         widget.destroy()
+
     centerWin(root, 500, 500)
     root.configure(bg="#f0f0f0")
 

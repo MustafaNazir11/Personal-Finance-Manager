@@ -2,7 +2,7 @@ from tkinter import *
 import pandas as pd
 import os
 from datetime import datetime
-from utility import navigate_to , centerWin
+from utility import navigate_to, centerWin
 
 def register(root, home_page):
     def handle_registration():
@@ -19,14 +19,15 @@ def register(root, home_page):
             "password": [user_password]
         })
 
-        user_file = f"{username}_data.csv"
+        user_file = f"users_ka_data/{username}_data.csv"
 
         if os.path.exists(user_file):
-            new_data.to_csv(f"users_ka_data/{user_file}", mode='a', index=False, header=False)
-            new_data.to_csv("register.csv", mode='a', index=False, header=False)
+            new_data.to_csv(user_file, mode='a', index=False, header=False)
         else:
-            new_data.to_csv(f"users_ka_data/{user_file}", mode='w', index=False, header=True)
-            new_data.to_csv("register.csv", mode='a', index=False, header=False)
+            new_data.to_csv(user_file, mode='w', index=False, header=True)
+
+        new_data.to_csv("register.csv", mode='a', index=False, header=False)
+
         label_output.config(
             text=f"User registered successfully! Your username is '{username}'",
             fg="#006400"
@@ -34,7 +35,7 @@ def register(root, home_page):
 
     for widget in root.winfo_children():
         widget.destroy()
-    
+
     centerWin(root, 500, 550)
     root.configure(bg="#f0f0f0")
 
