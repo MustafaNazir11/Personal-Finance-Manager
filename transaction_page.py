@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from utility import centerWin, navigate_to
 from tkinter import messagebox
+from datetime import datetime
 
 categories = {
     "Income": ["Income"],
@@ -10,10 +11,88 @@ categories = {
     "Expenses": ["Rent", "Utilities", "Transport", "Shopping", "Others"]
 }
 
-columns = [f"{main}: {sub}" if sub != main else main for main in categories for sub in categories[main]]
+columns = ["Date", "Category", "Subcategory", "Amount"]
+
+def view_transaction_history(root, username):
+    try:
+        file_path = f"all-transaction/{username}_transactions.csv"
+        if not os.path.exists(file_path):
+            messagebox.showinfo("No Transactions", "No transaction history found for this user.")
+            return
+
+        transactions = pd.read_csv(file_path)
+
+        income = transactions[transactions['Category'] == 'Income']['Amount'].sum()
+        savings = transactions[transactions['Category'] == 'Savings']['Amount'].sum()
+        expenses = transactions[transactions['Category'] == 'Expenses']['Amount'].sum()
+        balance_amount = income - (savings + expenses)
+
+        if expenses >= 0.1 * income:
+            messagebox.showinfo("Spending Alert", "You have spent 10% or more of your income!")
+        if savings >= 0.3 * income:
+            messagebox.showinfo("Savings Milestone", "Congratulations! You have saved 30% or more of your income.")
+
+        for widget in root.winfo_children():
+            widget.destroy()
+
+        Label(root, text=f"{username}'s Transaction History", font=("Helvetica", 20, "bold"), bg="#f0f0f0").pack(pady=20)
+
+        frame = Frame(root, bg="#f0f0f0")
+        frame.pack(fill=BOTH, expand=True)
+
+        canvas = Canvas(frame, bg="#f0f0f0")
+        scrollbar = Scrollbar(frame, orient=VERTICAL, command=canvas.yview)
+        scrollable_frame = Frame(canvas, bg="#f0f0f0")
+
+        scrollable_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side=LEFT, fill=BOTH, expand=True)
+        scrollbar.pack(side=RIGHT, fill=Y)
+
+        headers = columns
+        header_frame = Frame(scrollable_frame, bg="#d3d3d3")
+        header_frame.pack(fill=X)
+        for header in headers:
+            Label(header_frame, text=header, font=("Helvetica", 12, "bold"), bg="#d3d3d3", width=20).pack(side=LEFT, padx=1, pady=1)
+
+        for _, row in transactions.iterrows():
+            row_frame = Frame(scrollable_frame, bg="#f0f0f0")
+            row_frame.pack(fill=X)
+            for value in row:
+                Label(row_frame, text=f"₹{value}" if isinstance(value, (int, float)) else value if pd.notnull(value) else "", font=("Helvetica", 12), bg="#f0f0f0", width=20, anchor="w").pack(side=LEFT, padx=1, pady=1)
+
+        balance_label = Label(
+            root,
+            text=f"Balance Amount: ₹{balance_amount:.2f}",
+            font=("Helvetica", 14, "bold"),
+            fg="#006400" if balance_amount > 0 else "#FF0000",
+            bg="#f0f0f0"
+        )
+        balance_label.pack(pady=10)
+
+        if balance_amount <= 0:
+            messagebox.showwarning("Low Balance", "Warning: Your balance is zero or negative!")
+
+        Button(
+            root,
+            text="Back",
+            font=("Helvetica", 14),
+            command=lambda: transaction_page(root, username),
+            bg="#007BFF",
+            fg="white",
+            relief=RAISED
+        ).pack(pady=20)
+
+    except Exception as e:
+        messagebox.showerror("Error", f"An error occurred while loading the transaction history: {e}")
 
 def transaction_page(root, username):
-    """Sets up the transaction page."""
     centerWin(root, 500, 600)
     root.configure(bg="#f0f0f0")
     root.title("Transaction Page")
@@ -45,20 +124,12 @@ def transaction_page(root, username):
             menu.add_command(label=sub, command=lambda value=sub: subcategory_var.set(value))
         subcategory_var.set("Select Subcategory")
 
-    category_main_var.trace("w", update_subcategories)
+    category_main_var.trace_add("write", update_subcategories)
 
     Label(root, text="Amount (₹):", font=("Helvetica", 14), bg="#f0f0f0").pack(pady=10)
     entry_amount = Entry(root, font=("Helvetica", 14), width=30)
-    entry_amount.pack(pady=5)
 
-    def calculate_totals(file_name):
-        if os.path.exists(file_name):
-            df = pd.read_csv(file_name)
-            total_income = df["Income"].sum() if "Income" in df.columns else 0
-            total_savings = sum(df[col].sum() for col in df.columns if col.startswith("Savings"))
-            total_shopping = df["Expenses: Shopping"].sum() if "Expenses: Shopping" in df.columns else 0
-            return total_income, total_savings, total_shopping
-        return 0, 0, 0
+    entry_amount.pack(pady=5)
 
     def add_transaction():
         main_category = category_main_var.get()
@@ -71,49 +142,57 @@ def transaction_page(root, username):
 
         try:
             amount = float(amount)
-            file_name = f"{username}_transactions.csv"
+            file_name = f"all-transaction/{username}_transactions.csv"
 
             if os.path.exists(file_name):
                 df_transaction = pd.read_csv(file_name)
             else:
                 df_transaction = pd.DataFrame(columns=columns)
 
-            column_name = f"{main_category}: {subcategory}" if subcategory != main_category else main_category
+            date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            new_row = {
+                "Date": date,
+                "Category": main_category,
+                "Subcategory": subcategory,
+                "Amount": amount
+            }
 
-            if column_name in df_transaction.columns:
-                new_row = {col: None for col in df_transaction.columns}
-                new_row[column_name] = amount
-                df_transaction.dropna()
-                df_transaction = pd.concat([df_transaction, pd.DataFrame([new_row])], ignore_index=True)
-
+            df_transaction = pd.concat([df_transaction, pd.DataFrame([new_row])], ignore_index=True)
             df_transaction.to_csv(file_name, index=False)
             transaction_output.config(text=f"Transaction added: {main_category} - {subcategory} - ₹{amount:.2f}", fg="#006400")
 
-            total_income, total_savings, total_shopping = calculate_totals(file_name)
+            income = df_transaction[df_transaction['Category'] == 'Income']['Amount'].sum()
+            savings = df_transaction[df_transaction['Category'] == 'Savings']['Amount'].sum()
+            expenses = df_transaction[df_transaction['Category'] == 'Expenses']['Amount'].sum()
 
-            if total_shopping > total_income / 10:
-                messagebox.showwarning("Shopping Alert", f"You have spent more than 10% of your income on shopping!\nIncome: ₹{total_income:.2f}\nShopping: ₹{total_shopping:.2f}")
-
-            if total_savings >= total_income * 0.3:
-                messagebox.showinfo("Savings Milestone", f"Congratulations! You have saved 30% or more of your income!\nIncome: ₹{total_income:.2f}\nSavings: ₹{total_savings:.2f}")
+            if expenses >= 0.1 * income:
+                messagebox.showinfo("Spending Alert", "You have spent 10% or more of your income!")
+            if savings >= 0.3 * income:
+                messagebox.showinfo("Savings Milestone", "Congratulations! You have saved 30% or more of your income.")
 
         except ValueError:
             transaction_output.config(text="Invalid amount! Please enter a valid number.", fg="#8B0000")
-
-    def logout():
-        from Main import main_page  # Import here to avoid circular dependency
-        navigate_to(root, main_page)
     def back():
         from login import handle_login_success
         handle_login_success(root,username)
+    def logout():
+        from Main import main_page  # Import here to avoid circular dependency
+        navigate_to(root, main_page)
 
-        
     Button(root, text="Add Transaction", command=add_transaction, font=("Helvetica", 14, "bold"),
            bg="#004080", fg="white", width=20).pack(pady=20)
+    Button(
+        root,
+        text="Check Transaction History",
+        font=("Helvetica", 14),
+        command=lambda: view_transaction_history(root, username),
+        bg="#28a745",
+        fg="white",
+        relief=RAISED
+    ).pack(pady=10)
 
     Button(root, text="Back", command=back, font=("Helvetica", 14, "bold"),
-           bg="#004080", fg="white", width=20).pack(pady=20)
-    
+           bg="#004080", fg="white").pack(pady=20)
     Button(root, text="Logout", command= logout, font=("Helvetica", 14, "bold"),
            bg="#008080", fg="white").place(x=500, y=10, anchor="ne") 
 
