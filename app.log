@@ -141,3 +141,10 @@
 2025-01-12 18:36:18,030 - INFO - User 'omm@gmail.com' authenticated successfully.
 2025-01-12 18:39:53,363 - INFO - User 'ommm@gmail.com' authenticated successfully.
 2025-01-12 18:43:25,150 - INFO - User 'ommm@gmail.com' authenticated successfully.
+2025-01-12 18:48:29,120 - WARNING - Authentication failed for email: new@gmail.com
+2025-01-12 18:48:38,531 - WARNING - Authentication failed for email: new@gmail.com
+2025-01-12 18:48:41,200 - WARNING - Authentication failed for email: new@gmail.com
+2025-01-12 18:48:43,597 - WARNING - Authentication failed for email: new@gmail.com
+2025-01-12 18:49:05,944 - INFO - User 'new@gmail.com' authenticated successfully.
+2025-01-12 18:52:20,346 - INFO - User 'new@gmail.com' authenticated successfully.
+2025-01-12 18:58:08,155 - INFO - User 'ommm@gmail.com' authenticated successfully.
