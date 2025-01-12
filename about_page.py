@@ -15,17 +15,18 @@ def about_page(root, home_page):
 
     root.title("About Personal Finance Manager")
     root.geometry(f"{window_W}x{window_H}+{Position_H}+{Position_V}")
+    root.configure(bg="#e8f0f7")  # Updated background color to match the main page theme
 
     # Define fonts and styles
-    fixed_font = ("Courier", 14)
-    bold_font = ("Courier", 14, "bold")
-    heading_font = ("Helvetica", 18, "bold")
+    fixed_font = ("Arial", 14)
+    bold_font = ("Arial", 14, "bold")
+    heading_font = ("Arial", 18, "bold")
     excited_font = ("Arial", 16, "italic bold")
 
     # Create a canvas with a scrollbar
-    canvas = tk.Canvas(root, bg="#2C2C2C")
+    canvas = tk.Canvas(root, bg="#e8f0f7")  # Updated background color
     scrollbar = tk.Scrollbar(root, orient="vertical", command=canvas.yview)
-    frame = tk.Frame(canvas, bg="#2C2C2C")
+    frame = tk.Frame(canvas, bg="#e8f0f7")  # Updated background color
 
     canvas.configure(yscrollcommand=scrollbar.set)
     scrollbar.pack(side="right", fill="y")
@@ -37,15 +38,15 @@ def about_page(root, home_page):
         frame,
         text="About the Personal Finance Manager App",
         font=heading_font,
-        fg="#FFA500",
-        bg="#2C2C2C"
+        fg="#003366",  # Updated text color
+        bg="#e8f0f7"   # Updated background color
     )
     label_title.pack(pady=10)
 
     # Description section
     label_description = tk.Label(
         frame,
-        text=(
+        text=( 
             "Take Control of Your Finances with Ease\n\n"
             "Welcome to the Personal Finance Manager app—a comprehensive\n"
             "and user-friendly desktop tool designed to help you manage\n"
@@ -59,8 +60,8 @@ def about_page(root, home_page):
         font=fixed_font,
         justify="center",
         wraplength=750,
-        fg="white",
-        bg="#2C2C2C"
+        fg="#555555",  # Updated text color
+        bg="#e8f0f7"   # Updated background color
     )
     label_description.pack(pady=10)
 
@@ -69,14 +70,14 @@ def about_page(root, home_page):
         frame,
         text="What Does This App Do?",
         font=heading_font,
-        fg="#FFD700",
-        bg="#2C2C2C"
+        fg="#003366",  # Updated text color
+        bg="#e8f0f7"   # Updated background color
     )
     label_features_title.pack(pady=10)
 
     label_features = tk.Label(
         frame,
-        text=(
+        text=( 
             "💸 Expense Tracking:\n"
             "    - Log all your income and expenses manually in a seamless manner.\n"
             "    - Categorize each transaction into clear categories (e.g., groceries, utilities, entertainment).\n\n"
@@ -91,8 +92,8 @@ def about_page(root, home_page):
         font=fixed_font,
         justify="center",
         wraplength=750,
-        fg="white",
-        bg="#2C2C2C"
+        fg="#555555",  # Updated text color
+        bg="#e8f0f7"   # Updated background color
     )
     label_features.pack(pady=10)
 
@@ -101,14 +102,14 @@ def about_page(root, home_page):
         frame,
         text="Benefits of Using the App & How to Register",
         font=heading_font,
-        fg="#00FF00",
-        bg="#2C2C2C"
+        fg="#003366",  # Updated text color
+        bg="#e8f0f7"   # Updated background color
     )
     label_benefits_register_title.pack(pady=10)
 
     label_benefits_register = tk.Label(
         frame,
-        text=(
+        text=( 
             "📅 Stay Organized: Easily manage your financial activities.\n\n"
             "🔒 Secure and Private: Rest assured your data is safe.\n\n"
             "🚀 Improve Financial Health: Understand and optimize spending patterns.\n\n"
@@ -118,23 +119,23 @@ def about_page(root, home_page):
         font=fixed_font,
         justify="center",
         wraplength=750,
-        fg="white",
-        bg="#2C2C2C"
+        fg="#555555",  # Updated text color
+        bg="#e8f0f7"   # Updated background color
     )
     label_benefits_register.pack(pady=10)
 
     # Excitement section
     label_excited = tk.Label(
         frame,
-        text=(
+        text=( 
             "🚀 Start Your Financial Journey Today!\n"
             "    - Take control of your finances and achieve your goals with our app. 🌟"
         ),
         font=excited_font,
         justify="center",
         wraplength=750,
-        fg="#FF4500",
-        bg="#2C2C2C"
+        fg="#003366",  # Updated text color
+        bg="#e8f0f7"   # Updated background color
     )
     label_excited.pack(pady=20)
 
@@ -143,11 +144,13 @@ def about_page(root, home_page):
         frame,
         text="Back",
         command=lambda: navigate_to(root, home_page),
-        font=("Helvetica", 14, "bold"),
-        bg="#404040",
+        font=("Arial", 14, "bold"),
+        bg="#0078d7",  # Updated button background color
         fg="white",
-        relief="raised",
-        bd=4,
+        relief="flat",
+        cursor="hand2",
+        activebackground="#005bb5",
+        activeforeground="white",
         width=10
     )
     button_back.pack(pady=20)

@@ -35,14 +35,14 @@ def view_transaction_history(root, username):
         for widget in root.winfo_children():
             widget.destroy()
 
-        Label(root, text=f"{username}'s Transaction History", font=("Helvetica", 20, "bold"), bg="#f0f0f0").pack(pady=20)
+        Label(root, text=f"{username}'s Transaction History", font=("Helvetica", 20, "bold"), bg="#f7f9fc").pack(pady=20)
 
-        frame = Frame(root, bg="#f0f0f0")
+        frame = Frame(root, bg="#f7f9fc")
         frame.pack(fill=BOTH, expand=True)
 
-        canvas = Canvas(frame, bg="#f0f0f0")
+        canvas = Canvas(frame, bg="#f7f9fc")
         scrollbar = Scrollbar(frame, orient=VERTICAL, command=canvas.yview)
-        scrollable_frame = Frame(canvas, bg="#f0f0f0")
+        scrollable_frame = Frame(canvas, bg="#f7f9fc")
 
         scrollable_frame.bind(
             "<Configure>",
@@ -56,23 +56,23 @@ def view_transaction_history(root, username):
         scrollbar.pack(side=RIGHT, fill=Y)
 
         headers = columns
-        header_frame = Frame(scrollable_frame, bg="#d3d3d3")
+        header_frame = Frame(scrollable_frame, bg="#dce3f2")
         header_frame.pack(fill=X)
         for header in headers:
-            Label(header_frame, text=header, font=("Helvetica", 12, "bold"), bg="#d3d3d3", width=20).pack(side=LEFT, padx=1, pady=1)
+            Label(header_frame, text=header, font=("Helvetica", 12, "bold"), bg="#dce3f2", width=20).pack(side=LEFT, padx=1, pady=1)
 
         for _, row in transactions.iterrows():
-            row_frame = Frame(scrollable_frame, bg="#f0f0f0")
+            row_frame = Frame(scrollable_frame, bg="#f7f9fc")
             row_frame.pack(fill=X)
             for value in row:
-                Label(row_frame, text=f"₹{value}" if isinstance(value, (int, float)) else value if pd.notnull(value) else "", font=("Helvetica", 12), bg="#f0f0f0", width=20, anchor="w").pack(side=LEFT, padx=1, pady=1)
+                Label(row_frame, text=f"₹{value}" if isinstance(value, (int, float)) else value if pd.notnull(value) else "", font=("Helvetica", 12), bg="#f7f9fc", width=20, anchor="w").pack(side=LEFT, padx=1, pady=1)
 
         balance_label = Label(
             root,
             text=f"Balance Amount: ₹{balance_amount:.2f}",
             font=("Helvetica", 14, "bold"),
-            fg="#006400" if balance_amount > 0 else "#FF0000",
-            bg="#f0f0f0"
+            fg="#28a745" if balance_amount > 0 else "#ff6f61",
+            bg="#f7f9fc"
         )
         balance_label.pack(pady=10)
 
@@ -84,7 +84,7 @@ def view_transaction_history(root, username):
             text="Back",
             font=("Helvetica", 14),
             command=lambda: transaction_page(root, username),
-            bg="#007BFF",
+            bg="#70a1ff",
             fg="white",
             relief=RAISED
         ).pack(pady=20)
@@ -94,22 +94,22 @@ def view_transaction_history(root, username):
 
 def transaction_page(root, username):
     centerWin(root, 500, 600)
-    root.configure(bg="#f0f0f0")
+    root.configure(bg="#f7f9fc")
     root.title("Transaction Page")
 
     for widget in root.winfo_children():
         widget.destroy()
 
-    Label(root, text="Transaction Page", font=("Helvetica", 22, "bold"), fg="#000080", bg="#f0f0f0").pack(pady=20)
-    Label(root, text=f"Welcome, {username}!", font=("Helvetica", 14), fg="#404040", bg="#f0f0f0").pack(pady=5)
+    Label(root, text="Transaction Page", font=("Helvetica", 22, "bold"), fg="#2c3e50", bg="#f7f9fc").pack(pady=20)
+    Label(root, text=f"Welcome, {username}!", font=("Helvetica", 14), fg="#404040", bg="#f7f9fc").pack(pady=5)
 
-    Label(root, text="Category Type:", font=("Helvetica", 14), bg="#f0f0f0").pack(pady=5)
+    Label(root, text="Category Type:", font=("Helvetica", 14), bg="#f7f9fc").pack(pady=5)
     category_main_var = StringVar(value="Select Main Category")
     main_dropdown = OptionMenu(root, category_main_var, *categories.keys())
     main_dropdown.config(font=("Helvetica", 14), bg="#ffffff", width=25)
     main_dropdown.pack(pady=5)
 
-    Label(root, text="Subcategory:", font=("Helvetica", 14), bg="#f0f0f0").pack(pady=5)
+    Label(root, text="Subcategory:", font=("Helvetica", 14), bg="#f7f9fc").pack(pady=5)
     subcategory_var = StringVar(value="Select Subcategory")
     sub_dropdown = OptionMenu(root, subcategory_var, "Select a Main Category First")
     sub_dropdown.config(font=("Helvetica", 14), bg="#ffffff", width=25)
@@ -126,7 +126,7 @@ def transaction_page(root, username):
 
     category_main_var.trace_add("write", update_subcategories)
 
-    Label(root, text="Amount (₹):", font=("Helvetica", 14), bg="#f0f0f0").pack(pady=10)
+    Label(root, text="Amount (₹):", font=("Helvetica", 14), bg="#f7f9fc").pack(pady=10)
     entry_amount = Entry(root, font=("Helvetica", 14), width=30)
     entry_amount.pack(pady=5)
 
@@ -181,21 +181,21 @@ def transaction_page(root, username):
         navigate_to(root, main_page)
 
     Button(root, text="Add Transaction", command=add_transaction, font=("Helvetica", 14, "bold"),
-           bg="#004080", fg="white", width=20).pack(pady=20)
+           bg="#70a1ff", fg="white", width=20).pack(pady=20)
     Button(
         root,
         text="Check Transaction History",
         font=("Helvetica", 14),
         command=lambda: view_transaction_history(root, username),
-        bg="#28a745",
+        bg="#75d06e",
         fg="white",
         relief=RAISED
     ).pack(pady=10)
 
     Button(root, text="Back", command=back, font=("Helvetica", 14, "bold"),
-           bg="#004080", fg="white").pack(pady=20)
+           bg="#70a1ff", fg="white").pack(pady=20)
     Button(root, text="Logout", command=logout, font=("Helvetica", 14, "bold"),
-           bg="#008080", fg="white").place(x=500, y=10, anchor="ne")
+           bg="#70a1ff", fg="white").place(x=500, y=10, anchor="ne")
 
-    transaction_output = Label(root, text="", font=("Helvetica", 14), bg="#f0f0f0")
+    transaction_output = Label(root, text="", font=("Helvetica", 14), bg="#f7f9fc")
     transaction_output.pack()

@@ -10,18 +10,18 @@ def handle_login_success(root, username):
         from Main import main_page  # Import here to avoid circular dependency
         navigate_to(root, main_page)
 
-    root.configure(bg="#f0f0f0")
+    root.configure(bg="#e8f0f7")  # Changed background color
 
-    Label(root, text=f"Welcome, {username}!", font=("Helvetica", 20, "bold"), fg="#000080", bg="#f0f0f0").pack(pady=30)
+    Label(root, text=f"Welcome, {username}!", font=("Helvetica", 20, "bold"), fg="#003366", bg="#e8f0f7").pack(pady=30)
 
-    Label(root, text="Choose an action:", font=("Helvetica", 16), fg="#404040", bg="#f0f0f0").pack(pady=15)
+    Label(root, text="Choose an action:", font=("Helvetica", 16), fg="#404040", bg="#e8f0f7").pack(pady=15)
 
     Button(
         root,
         text="Transaction Page",
         command=lambda: transaction_page(root, username),
         fg="white",
-        bg="#004080",
+        bg="#0078d7",  # Changed button color
         font=("Helvetica", 14, "bold"),
         width=18,
         height=2,
@@ -34,7 +34,7 @@ def handle_login_success(root, username):
         text="Logout",
         command=logout,
         fg="white",
-        bg="#004080",
+        bg="#0078d7",  # Changed button color
         font=("Helvetica", 14, "bold"),
         width=18,
         height=2,
@@ -56,21 +56,21 @@ def login(root, home_page):
         widget.destroy()
 
     centerWin(root, 500, 500)
-    root.configure(bg="#f0f0f0")
+    root.configure(bg="#e8f0f7")  # Changed background color
 
     Label(
         root,
         text="Login",
         font=("Helvetica", 22, "bold"),
-        fg="#000080",
-        bg="#f0f0f0"
+        fg="#003366",  # Changed text color
+        bg="#e8f0f7"  # Changed background color
     ).pack(pady=30)
 
     Label(
         root,
         text="Email:",
         font=("Helvetica", 14),
-        bg="#f0f0f0"
+        bg="#e8f0f7"  # Changed background color
     ).pack(pady=10)
     entry_email = Entry(root, width=40, font=("Helvetica", 14))
     entry_email.pack()
@@ -79,7 +79,7 @@ def login(root, home_page):
         root,
         text="Password:",
         font=("Helvetica", 14),
-        bg="#f0f0f0"
+        bg="#e8f0f7"  # Changed background color
     ).pack(pady=10)
     entry_password = Entry(root, width=40, show="*", font=("Helvetica", 14))
     entry_password.pack()
@@ -89,7 +89,7 @@ def login(root, home_page):
         text="Login",
         command=handle_login,
         fg="white",
-        bg="#004080",
+        bg="#0078d7",  # Changed button color
         font=("Helvetica", 14, "bold"),
         width=12,
         height=1,
@@ -103,7 +103,7 @@ def login(root, home_page):
         text="",
         fg="#8B0000",
         font=("Helvetica", 14),
-        bg="#f0f0f0"
+        bg="#e8f0f7"  # Changed background color
     )
     label_output.pack()
 

@@ -13,7 +13,7 @@ def register(root, home_page):
         username = user_email.split("@")[0]
 
         new_data = pd.DataFrame({
-            "timestamp": [datetime.now().strftime("%d|%m|%Y %H:%M:%S")],
+            "timestamp": [datetime.now().strftime("%d|%m|Y %H:%M:%S")],
             "name": [user_name],
             "email": [user_email],
             "password": [user_password]
@@ -37,28 +37,28 @@ def register(root, home_page):
         widget.destroy()
 
     centerWin(root, 500, 550)
-    root.configure(bg="#f0f0f0")
+    root.configure(bg="#e8f0f7")  # Updated background color to match the main page theme
 
-    Label(root, text="Register User", font=("Helvetica", 22, "bold"), fg="#000080", bg="#f0f0f0").pack(pady=30)
+    Label(root, text="Register User", font=("Arial", 22, "bold"), fg="#003366", bg="#e8f0f7").pack(pady=30)
 
-    Label(root, text="Name:", font=("Helvetica", 14), fg="#404040", bg="#f0f0f0").pack(pady=10)
-    entry_name = Entry(root, width=40, font=("Helvetica", 14))
+    Label(root, text="Name:", font=("Arial", 14), fg="#555555", bg="#e8f0f7").pack(pady=10)
+    entry_name = Entry(root, width=40, font=("Arial", 14))
     entry_name.pack()
 
-    Label(root, text="Email:", font=("Helvetica", 14), fg="#404040", bg="#f0f0f0").pack(pady=10)
-    entry_email = Entry(root, width=40, font=("Helvetica", 14))
+    Label(root, text="Email:", font=("Arial", 14), fg="#555555", bg="#e8f0f7").pack(pady=10)
+    entry_email = Entry(root, width=40, font=("Arial", 14))
     entry_email.pack()
 
-    Label(root, text="Password:", font=("Helvetica", 14), fg="#404040", bg="#f0f0f0").pack(pady=10)
-    entry_password = Entry(root, width=40, show="*", font=("Helvetica", 14))
+    Label(root, text="Password:", font=("Arial", 14), fg="#555555", bg="#e8f0f7").pack(pady=10)
+    entry_password = Entry(root, width=40, show="*", font=("Arial", 14))
     entry_password.pack()
 
-    Button(root, text="Register", command=handle_registration, fg="white", bg="#004080",
-           font=("Helvetica", 14, "bold"), width=12, height=1, relief="raised", bd=4).pack(pady=25)
+    Button(root, text="Register", command=handle_registration, fg="white", bg="#0078d7",  # Updated button color
+           font=("Arial", 14, "bold"), width=12, height=1, relief="raised", bd=4).pack(pady=25)
 
     global label_output
-    label_output = Label(root, text="", fg="#8B0000", font=("Helvetica", 14), bg="#f0f0f0")
+    label_output = Label(root, text="", fg="#8B0000", font=("Arial", 14), bg="#e8f0f7")
     label_output.pack()
 
     Button(root, text="Back", command=lambda: navigate_to(root, home_page), fg="white", bg="#808080",
-           font=("Helvetica", 12, "bold"), width=10, height=1, relief="raised", bd=3).pack(pady=15)
+           font=("Arial", 12, "bold"), width=10, height=1, relief="raised", bd=3).pack(pady=15)

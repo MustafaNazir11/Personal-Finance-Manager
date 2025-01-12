@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from datetime import datetime
 import logging
+from tkinter import Frame
 
 # Setup logging
 logging.basicConfig(
@@ -73,15 +74,14 @@ def save_transaction(username, category, amount):
         logging.error(f"Failed to save transaction for '{username}': {e}")
         raise RuntimeError("Error saving transaction data.") from e
 
-def centerWin(root,winW, winH):
-    screen_H = root.winfo_screenheight() 
-    screen_W = root.winfo_screenwidth() 
-    PosY = int((screen_H - winH)/2)
+def centerWin(root, winW, winH):
+    screen_H = root.winfo_screenheight()
+    screen_W = root.winfo_screenwidth()
+    PosY = int((screen_H - winH) / 2)
     PosX = int((screen_W - winW) / 2)
     root.geometry(f"{winW}x{winH}+{PosX}+{PosY}")
 
 def navigate_to(root, next_page):
-
     for widget in root.winfo_children():
         widget.destroy()
     next_page(root)

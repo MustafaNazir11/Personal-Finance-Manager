@@ -35,3 +35,5 @@ timestamp,name,email,password
 02|01|2025 13:22:13,test_user1,test_user1@,1234567890
 10|01|2025 13:26:20,aaaaa,aaaaa@,aaaaa
 10|01|2025 15:02:37,IWEFO,iwefo@,12345
+12|01|2025 17:13:17,omm,ommm@gmail.com,123456789
+12|01|Y 18:48:13,new,new@gmail.com,23456789
