@@ -74,7 +74,7 @@ def main_page(root):
         activebackground="#005bb5",
         activeforeground="white",
         **button_style
-    )
+    )    # Remove the incomplete line
     btn_register.default_bg = "#0078d7"
     btn_register.pack(pady=10)
     on_hover(btn_register, "#005bb5")

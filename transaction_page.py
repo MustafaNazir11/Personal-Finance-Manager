@@ -4,6 +4,8 @@ import os
 from utility import centerWin, navigate_to
 from tkinter import messagebox
 from datetime import datetime
+import plotly.express as px
+import webbrowser
 
 categories = {
     "Income": ["Income"],
@@ -55,7 +57,7 @@ def view_transaction_history(root, username):
         canvas.pack(side=LEFT, fill=BOTH, expand=True)
         scrollbar.pack(side=RIGHT, fill=Y)
 
-        headers = columns
+        headers = transactions.columns.tolist()
         header_frame = Frame(scrollable_frame, bg="#dce3f2")
         header_frame.pack(fill=X)
         for header in headers:
@@ -79,6 +81,9 @@ def view_transaction_history(root, username):
         if balance_amount <= 0:
             messagebox.showwarning("Low Balance", "Warning: Your balance is zero or negative!")
 
+        # Generate and display the expense pie chart
+        generate_dynamic_graph(username)
+
         Button(
             root,
             text="Back",
@@ -88,9 +93,48 @@ def view_transaction_history(root, username):
             fg="white",
             relief=RAISED
         ).pack(pady=20)
-
+    
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred while loading the transaction history: {e}")
+
+def generate_dynamic_graph(username):
+    file_path = f"all-transaction/{username}_transactions.csv"
+    if not os.path.exists(file_path):
+        return
+
+    try:
+        transactions = pd.read_csv(file_path)
+        
+        # Generate Expense Pie Chart
+        expenses = transactions[transactions["Category"] == "Expenses"]
+        if not expenses.empty:
+            fig_pie = px.pie(
+                expenses,
+                names="Subcategory",
+                values="Amount",
+                title="Expense Distribution by Subcategory",
+            )
+            fig_pie.write_html("expense_pie_chart.html")
+            webbrowser.open("expense_pie_chart.html")
+
+        # Generate Income, Savings, and Expenses Bar Chart
+        income = transactions[transactions['Category'] == 'Income']['Amount'].sum()
+        savings = transactions[transactions['Category'] == 'Savings']['Amount'].sum()
+        expenses_total = expenses["Amount"].sum()
+
+        fig_bar = px.bar(
+            x=["Income", "Savings", "Expenses"],
+            y=[income, savings, expenses_total],
+            color=["Income", "Savings", "Expenses"],
+            text=[f"₹{income}", f"₹{savings}", f"₹{expenses_total}"],
+            title="Income, Savings, and Expenses Distribution"
+        )
+
+        fig_bar.write_html("income_savings_expenses_chart.html")
+        webbrowser.open("income_savings_expenses_chart.html")
+
+    except Exception as e:
+        messagebox.showerror("Error", f"An error occurred while generating the graph: {e}")
 
 def transaction_page(root, username):
     centerWin(root, 500, 600)
@@ -114,7 +158,6 @@ def transaction_page(root, username):
     sub_dropdown = OptionMenu(root, subcategory_var, "Select a Main Category First")
     sub_dropdown.config(font=("Helvetica", 14), bg="#ffffff", width=25)
     sub_dropdown.pack(pady=5)
-
     def update_subcategories(*args):
         main_category = category_main_var.get()
         subcategories = categories.get(main_category, [])
@@ -129,7 +172,6 @@ def transaction_page(root, username):
     Label(root, text="Amount (₹):", font=("Helvetica", 14), bg="#f7f9fc").pack(pady=10)
     entry_amount = Entry(root, font=("Helvetica", 14), width=30)
     entry_amount.pack(pady=5)
-
     def add_transaction():
         main_category = category_main_var.get()
         subcategory = subcategory_var.get()
@@ -199,3 +241,4 @@ def transaction_page(root, username):
 
     transaction_output = Label(root, text="", font=("Helvetica", 14), bg="#f7f9fc")
     transaction_output.pack()
+
