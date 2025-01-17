@@ -15,17 +15,15 @@ def on_hover(button, color):
 
 
 def main_page(root):
-    """
-    Sets up the homepage with enhanced aesthetics and user experience.
-    """
+
     for widget in root.winfo_children():
         widget.destroy()
 
-    # Window configuration
+    
     root.title("Personal Finance Manager")
     root.configure(bg="#e8f0f7")
 
-    # Header with optional logo
+    
     header_frame = Frame(root, bg="#e8f0f7")
     header_frame.pack(pady=30)
 
@@ -52,7 +50,7 @@ def main_page(root):
         bg="#e8f0f7"
     ).pack(pady=5)
 
-    # Buttons
+    
     button_frame = Frame(root, bg="#e8f0f7")
     button_frame.pack(pady=20)
 
@@ -74,7 +72,7 @@ def main_page(root):
         activebackground="#005bb5",
         activeforeground="white",
         **button_style
-    )    # Remove the incomplete line
+    )    
     btn_register.default_bg = "#0078d7"
     btn_register.pack(pady=10)
     on_hover(btn_register, "#005bb5")
@@ -107,7 +105,7 @@ def main_page(root):
     btn_about.pack(pady=10)
     on_hover(btn_about, "#5a6268")
 
-    # Footer
+    
     footer_frame = Frame(root, bg="#e8f0f7")
     footer_frame.pack(side=BOTTOM, pady=20)
 

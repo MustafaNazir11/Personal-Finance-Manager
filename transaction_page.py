@@ -15,6 +15,58 @@ categories = {
 
 columns = ["Date", "Category", "Subcategory", "Amount"]
 
+def generate_dynamic_graph(username):
+    file_path = f"all-transaction/{username}_transactions.csv"
+    
+    if not os.path.exists(file_path):
+        return  
+
+    try:
+        transactions = pd.read_csv(file_path)
+
+        
+        expenses = transactions[transactions["Category"] == "Expenses"]
+        if not expenses.empty:
+            fig_pie_expenses = px.pie(
+                expenses,
+                names="Subcategory",
+                values="Amount",
+                title="Expense Distribution by Subcategory"
+            )
+            fig_pie_expenses.write_html("expense_pie_chart.html")
+            webbrowser.open("expense_pie_chart.html")
+
+        
+        savings = transactions[transactions["Category"] == "Savings"]
+        if not savings.empty:
+            fig_pie_savings = px.pie(
+                savings,
+                names="Subcategory",
+                values="Amount",
+                title="Savings Distribution by Type"
+            )
+            fig_pie_savings.write_html("savings_pie_chart.html")
+            webbrowser.open("savings_pie_chart.html")
+
+        
+        income_total = transactions[transactions['Category'] == 'Income']['Amount'].sum()
+        savings_total = savings["Amount"].sum()
+        expenses_total = expenses["Amount"].sum()
+
+        fig_bar = px.bar(
+            x=["Income", "Savings", "Expenses"],
+            y=[income_total, savings_total, expenses_total],
+            color=["Income", "Savings", "Expenses"],
+            text=[f"₹{income_total}", f"₹{savings_total}", f"₹{expenses_total}"],
+            title="Income, Savings, and Expenses Distribution"
+        )
+
+        fig_bar.write_html("income_savings_expenses_chart.html")
+        webbrowser.open("income_savings_expenses_chart.html")
+
+    except Exception as e:
+        messagebox.showerror("Error", f"An error occurred while generating graphs: {e}")
+
 def view_transaction_history(root, username):
     try:
         file_path = f"all-transaction/{username}_transactions.csv"
@@ -81,7 +133,7 @@ def view_transaction_history(root, username):
         if balance_amount <= 0:
             messagebox.showwarning("Low Balance", "Warning: Your balance is zero or negative!")
 
-        # Generate and display the expense pie chart
+    
         generate_dynamic_graph(username)
 
         Button(
@@ -96,45 +148,6 @@ def view_transaction_history(root, username):
     
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred while loading the transaction history: {e}")
-
-def generate_dynamic_graph(username):
-    file_path = f"all-transaction/{username}_transactions.csv"
-    if not os.path.exists(file_path):
-        return
-
-    try:
-        transactions = pd.read_csv(file_path)
-        
-        # Generate Expense Pie Chart
-        expenses = transactions[transactions["Category"] == "Expenses"]
-        if not expenses.empty:
-            fig_pie = px.pie(
-                expenses,
-                names="Subcategory",
-                values="Amount",
-                title="Expense Distribution by Subcategory",
-            )
-            fig_pie.write_html("expense_pie_chart.html")
-            webbrowser.open("expense_pie_chart.html")
-
-        # Generate Income, Savings, and Expenses Bar Chart
-        income = transactions[transactions['Category'] == 'Income']['Amount'].sum()
-        savings = transactions[transactions['Category'] == 'Savings']['Amount'].sum()
-        expenses_total = expenses["Amount"].sum()
-
-        fig_bar = px.bar(
-            x=["Income", "Savings", "Expenses"],
-            y=[income, savings, expenses_total],
-            color=["Income", "Savings", "Expenses"],
-            text=[f"₹{income}", f"₹{savings}", f"₹{expenses_total}"],
-            title="Income, Savings, and Expenses Distribution"
-        )
-
-        fig_bar.write_html("income_savings_expenses_chart.html")
-        webbrowser.open("income_savings_expenses_chart.html")
-
-    except Exception as e:
-        messagebox.showerror("Error", f"An error occurred while generating the graph: {e}")
 
 def transaction_page(root, username):
     centerWin(root, 500, 600)
@@ -241,4 +254,3 @@ def transaction_page(root, username):
 
     transaction_output = Label(root, text="", font=("Helvetica", 14), bg="#f7f9fc")
     transaction_output.pack()
-
