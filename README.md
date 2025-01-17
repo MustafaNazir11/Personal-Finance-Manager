@@ -4,7 +4,7 @@
 
 The **Personal Finance Manager** is a simple desktop application built using Python and Tkinter. This program helps users register their details and manage their personal financial transactions. It includes functionalities to register users and add categorized transactions.
 
-##Made by: Ojas Manchanda, Shlok Nikam, Shiva Pachade, Om Choramle, Atharv Navale
+Made by: Ojas Manchanda, Shlok Nikam, Shiva Pachade, Om Choramle, Atharv Navale
 ---
 
 ## Features
