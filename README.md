@@ -1,4 +1,4 @@
-# AI-Finance-Manager
+# PERSONAL FINANCE MANAGER 
 
 ## Overview
 
