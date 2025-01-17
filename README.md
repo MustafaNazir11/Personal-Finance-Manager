@@ -37,3 +37,12 @@ The **Personal Finance Manager** is a simple desktop application built using Pyt
 3. Run the application using:
    ```bash
    python main.py
+
+
+Credits:
+1.  Mustafa 
+2.  Ojas 
+3.  Shlok
+4.  Om
+5.  Atharva
+6.  Shiva
