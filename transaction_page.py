@@ -17,14 +17,10 @@ columns = ["Date", "Category", "Subcategory", "Amount"]
 
 def generate_dynamic_graph(username):
     file_path = f"all-transaction/{username}_transactions.csv"
-    
     if not os.path.exists(file_path):
-        return  
-
+        return
     try:
         transactions = pd.read_csv(file_path)
-
-        
         expenses = transactions[transactions["Category"] == "Expenses"]
         if not expenses.empty:
             fig_pie_expenses = px.pie(
@@ -36,7 +32,6 @@ def generate_dynamic_graph(username):
             fig_pie_expenses.write_html("expense_pie_chart.html")
             webbrowser.open("expense_pie_chart.html")
 
-        
         savings = transactions[transactions["Category"] == "Savings"]
         if not savings.empty:
             fig_pie_savings = px.pie(
@@ -48,7 +43,6 @@ def generate_dynamic_graph(username):
             fig_pie_savings.write_html("savings_pie_chart.html")
             webbrowser.open("savings_pie_chart.html")
 
-        
         income_total = transactions[transactions['Category'] == 'Income']['Amount'].sum()
         savings_total = savings["Amount"].sum()
         expenses_total = expenses["Amount"].sum()
@@ -60,7 +54,6 @@ def generate_dynamic_graph(username):
             text=[f"₹{income_total}", f"₹{savings_total}", f"₹{expenses_total}"],
             title="Income, Savings, and Expenses Distribution"
         )
-
         fig_bar.write_html("income_savings_expenses_chart.html")
         webbrowser.open("income_savings_expenses_chart.html")
 
@@ -75,7 +68,6 @@ def view_transaction_history(root, username):
             return
 
         transactions = pd.read_csv(file_path)
-
         income = transactions[transactions['Category'] == 'Income']['Amount'].sum()
         savings = transactions[transactions['Category'] == 'Savings']['Amount'].sum()
         expenses = transactions[transactions['Category'] == 'Expenses']['Amount'].sum()
@@ -112,14 +104,17 @@ def view_transaction_history(root, username):
         headers = transactions.columns.tolist()
         header_frame = Frame(scrollable_frame, bg="#dce3f2")
         header_frame.pack(fill=X)
-        for header in headers:
-            Label(header_frame, text=header, font=("Helvetica", 12, "bold"), bg="#dce3f2", width=20).pack(side=LEFT, padx=1, pady=1)
 
-        for _, row in transactions.iterrows():
+        for i, header in enumerate(headers):
+            Label(header_frame, text=header, font=("Helvetica", 10, "bold"), bg="#dce3f2", width=15, bd=1, relief="solid").grid(row=0, column=i, padx=1, pady=1)
+
+        for i, (_, row) in enumerate(transactions.iterrows()):
             row_frame = Frame(scrollable_frame, bg="#f7f9fc")
             row_frame.pack(fill=X)
-            for value in row:
-                Label(row_frame, text=f"₹{value}" if isinstance(value, (int, float)) else value if pd.notnull(value) else "", font=("Helvetica", 12), bg="#f7f9fc", width=20, anchor="w").pack(side=LEFT, padx=1, pady=1)
+
+            for j, value in enumerate(row):
+                text = f"₹{value}" if isinstance(value, (int, float)) else value if pd.notnull(value) else ""
+                Label(row_frame, text=text, font=("Helvetica", 10), bg="#f7f9fc", width=15, anchor="center", bd=1, relief="solid").grid(row=0, column=j, padx=1, pady=1)
 
         balance_label = Label(
             root,
@@ -133,7 +128,6 @@ def view_transaction_history(root, username):
         if balance_amount <= 0:
             messagebox.showwarning("Low Balance", "Warning: Your balance is zero or negative!")
 
-    
         generate_dynamic_graph(username)
 
         Button(
@@ -145,7 +139,7 @@ def view_transaction_history(root, username):
             fg="white",
             relief=RAISED
         ).pack(pady=20)
-    
+
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred while loading the transaction history: {e}")
 
@@ -171,6 +165,7 @@ def transaction_page(root, username):
     sub_dropdown = OptionMenu(root, subcategory_var, "Select a Main Category First")
     sub_dropdown.config(font=("Helvetica", 14), bg="#ffffff", width=25)
     sub_dropdown.pack(pady=5)
+
     def update_subcategories(*args):
         main_category = category_main_var.get()
         subcategories = categories.get(main_category, [])
@@ -185,6 +180,7 @@ def transaction_page(root, username):
     Label(root, text="Amount (₹):", font=("Helvetica", 14), bg="#f7f9fc").pack(pady=10)
     entry_amount = Entry(root, font=("Helvetica", 14), width=30)
     entry_amount.pack(pady=5)
+
     def add_transaction():
         main_category = category_main_var.get()
         subcategory = subcategory_var.get()
@@ -213,6 +209,7 @@ def transaction_page(root, username):
 
             df_transaction = pd.concat([df_transaction, pd.DataFrame([new_row])], ignore_index=True)
             df_transaction.to_csv(file_name, index=False)
+
             transaction_output.config(text=f"Transaction added: {main_category} - {subcategory} - ₹{amount:.2f}", fg="#006400")
 
             income = df_transaction[df_transaction['Category'] == 'Income']['Amount'].sum()
@@ -237,6 +234,7 @@ def transaction_page(root, username):
 
     Button(root, text="Add Transaction", command=add_transaction, font=("Helvetica", 14, "bold"),
            bg="#70a1ff", fg="white", width=20).pack(pady=20)
+
     Button(
         root,
         text="Check Transaction History",
@@ -249,6 +247,7 @@ def transaction_page(root, username):
 
     Button(root, text="Back", command=back, font=("Helvetica", 14, "bold"),
            bg="#70a1ff", fg="white").pack(pady=20)
+
     Button(root, text="Logout", command=logout, font=("Helvetica", 14, "bold"),
            bg="#70a1ff", fg="white").place(x=500, y=10, anchor="ne")
 
