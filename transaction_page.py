@@ -73,8 +73,8 @@ def view_transaction_history(root, username):
         expenses = transactions[transactions['Category'] == 'Expenses']['Amount'].sum()
         balance_amount = income - (savings + expenses)
 
-        if expenses >= 0.1 * income:
-            messagebox.showinfo("Spending Alert", "You have spent 10% or more of your income!")
+        if expenses >= 0.3 * income:
+            messagebox.showinfo("Spending Alert", "You have spent 30% or more of your income!")
         if savings >= 0.3 * income:
             messagebox.showinfo("Savings Milestone", "Congratulations! You have saved 30% or more of your income.")
 

@@ -20,7 +20,7 @@ def save_user(name, email, password):
             "timestamp": [datetime.now().strftime("%d|%m|%Y %H:%M:%S")],
             "name": [name],
             "email": [email],
-            "password": [password]  # Consider hashing passwords for security
+            "password": [password]  
         })
 
         if os.path.exists("register.csv"):
